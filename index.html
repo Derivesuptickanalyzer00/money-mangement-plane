@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Betting System</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 5px;
+      text-align: center;
+    }
+    input[type="number"] {
+      padding: 5px;
+    }
+    .container {
+      width: 50%;
+      margin: auto;
+    }
+    .green-text {
+      color: green;
+      font-weight: bold;
+    }
+    .red-text {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Derivesup Analyzer Money Management Calculator</h2>
+
+    <label for="stake">Enter Stake ($):</label>
+    <input type="number" id="stake" min="0" max="5" value="5">
+    <br><br>
+
+    <label for="balance">Enter Balance ($):</label>
+    <input type="number" id="balance" min="0" value="100">
+    <br><br>
+
+    <label for="wins">Enter Wins:</label>
+    <input type="number" id="wins" value="0">
+    <br><br>
+
+    <label for="losses">Enter Losses:</label>
+    <input type="number" id="losses" value="0">
+    <br><br>
+
+    <button onclick="calculateResults()">Calculate Results</button>
+    <button onclick="resetData()">Reset</button>
+    
+    <h3>Daily Result Table</h3>
+    <table id="daily-result">
+      <tr>
+        <th>Wins</th>
+        <th>Losses</th>
+        <th>Profit</th>
+        <th>Balance</th>
+      </tr>
+    </table>
+    <p id="total-daily-profit">Total Daily Profit: $0.00</p>
+
+    <h3>Monthly Result Table</h3>
+    <table id="monthly-result">
+      <tr>
+        <th>Wins</th>
+        <th>Losses</th>
+        <th>Profit</th>
+        <th>Balance</th>
+      </tr>
+    </table>
+    <p id="total-monthly-profit">Total Monthly Profit: $0.00</p>
+  </div>
+
+  <script>
+    let dailyTotalProfit = 0;
+    let monthlyTotalProfit = 0;
+
+    function calculateResults() {
+      const stake = parseFloat(document.getElementById("stake").value);
+      const balance = parseFloat(document.getElementById("balance").value);
+      const wins = parseInt(document.getElementById("wins").value);
+      const losses = parseInt(document.getElementById("losses").value);
+
+      const profitPerTrade = 0.5;
+      const dailyProfit = wins * profitPerTrade - losses * stake;
+      const dailyBalance = balance + dailyProfit;
+
+      // Update daily table
+      const dailyResultTable = document.getElementById("daily-result");
+      const dailyRow = document.createElement("tr");
+      dailyRow.innerHTML = `
+        <td class="green-text">${wins}</td>
+        <td class="red-text">${losses}</td>
+        <td class="${dailyProfit >= 0 ? 'green-text' : 'red-text'}">${dailyProfit.toFixed(2)}</td>
+        <td>${dailyBalance.toFixed(2)}</td>
+      `;
+      dailyResultTable.appendChild(dailyRow);
+
+      // Update total daily profit
+      dailyTotalProfit += dailyProfit;
+      document.getElementById("total-daily-profit").innerText = `Total Daily Profit: $${dailyTotalProfit.toFixed(2)}`;
+
+      // For monthly result, assuming 30 days of same results (adjust as needed)
+      const monthlyProfit = dailyProfit * 30;
+      const monthlyBalance = balance + monthlyProfit;
+
+      // Update monthly table
+      const monthlyResultTable = document.getElementById("monthly-result");
+      const monthlyRow = document.createElement("tr");
+      monthlyRow.innerHTML = `
+        <td class="green-text">${wins}</td>
+        <td class="red-text">${losses}</td>
+        <td class="${monthlyProfit >= 0 ? 'green-text' : 'red-text'}">${monthlyProfit.toFixed(2)}</td>
+        <td>${monthlyBalance.toFixed(2)}</td>
+      `;
+      monthlyResultTable.appendChild(monthlyRow);
+
+      // Update total monthly profit
+      monthlyTotalProfit += monthlyProfit;
+      document.getElementById("total-monthly-profit").innerText = `Total Monthly Profit: $${monthlyTotalProfit.toFixed(2)}`;
+    }
+
+    function resetData() {
+      // Reset the inputs
+      document.getElementById("stake").value = 5;
+      document.getElementById("balance").value = 100;
+      document.getElementById("wins").value = 0;
+      document.getElementById("losses").value = 0;
+
+      // Reset the tables
+      document.getElementById("daily-result").innerHTML = `
+        <tr>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>Profit</th>
+          <th>Balance</th>
+        </tr>
+      `;
+      document.getElementById("monthly-result").innerHTML = `
+        <tr>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>Profit</th>
+          <th>Balance</th>
+        </tr>
+      `;
+
+      // Reset total profit
+      dailyTotalProfit = 0;
+      monthlyTotalProfit = 0;
+      document.getElementById("total-daily-profit").innerText = `Total Daily Profit: $0.00`;
+      document.getElementById("total-monthly-profit").innerText = `Total Monthly Profit: $0.00`;
+    }
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trading Stakes Table</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Trading Stakes Overview</h2>
+    <table>
+        <tr>
+            <th>Trade Type</th>
+            <th>Stake ($)</th>
+            <th>Profit ($)</th>
+            <th>Barrier</th>
+            <th>Loss</th>
+            <th>Win</th>
+            <th>Total Trades</th>
+        </tr>
+        <tr>
+            <td>Over/Under</td>
+            <td>0.54</td>
+            <td>0.5</td>
+            <td>-</td>
+            <td>10</td>
+            <td>15</td>
+            <td>25</td>
+        </tr>
+        <tr>
+            <td>Rise/Fall</td>
+            <td>0.50</td>
+            <td>0.5</td>
+            <td>-</td>
+            <td>10</td>
+            <td>15</td>
+            <td>25</td>
+        </tr>
+        <tr>
+            <td>Higher/Lower</td>
+            <td>0.63</td>
+            <td>0.5</td>
+            <td>+0.1</td>
+            <td>10</td>
+            <td>15</td>
+            <td>25</td>
+        </tr>
+        <tr>
+            <td>Touch/Not Touch</td>
+            <td>0.65</td>
+            <td>0.5</td>
+            <td>+0.44</td>
+            <td>10</td>
+            <td>15</td>
+            <td>25</td>
+        </tr>
+        <tr>
+            <td>Matches/Diffs</td>
+            <td>5.00</td>
+            <td>0.5</td>
+            <td>Digit 1 or 3</td>
+            <td>10</td>
+            <td>15</td>
+            <td>25</td>
+        </tr>
+        <tr>
+            <td>Even/Odd</td>
+            <td>0.54</td>
+            <td>0.5</td>
+            <td>-</td>
+            <td>10</td>
+            <td>15</td>
+            <td>25</td>
+        </tr>
+    </table>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
