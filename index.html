@@ -1,14 +1,4 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Untitled</title>
-  
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -36,11 +26,19 @@
       color: red;
       font-weight: bold;
     }
+    /* Add styles for the headline */
+    h2 {
+      color: blue;
+    }
+    h2 span {
+      color: red;
+      font-size: 1.5em; /* Slightly larger text for Derivesup */
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Derivesup Analyzer Money Management Calculator</h2>
+    <h2><span>Derivesup</span> Analyzer Money Management Calculator</h2>
 
     <label for="stake">Enter Stake ($):</label>
     <input type="number" id="stake" min="0" max="5" value="5">
@@ -182,18 +180,30 @@
             text-align: center;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: yellow;
+            color: red;
+        }
+        td {
+            background-color: white;
+        }
+        .loss {
+            background-color: red;
+            color: white;
+        }
+        .win {
+            background-color: green;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <h2>Trading Stakes Overview</h2>
+    <h2 style="color: red;">Trading Stakes Overview</h2>
     <table>
         <tr>
             <th>Trade Type</th>
             <th>Stake ($)</th>
             <th>Profit ($)</th>
-            <th>Barrier</th>
+            <th>Barrier&Digit</th>
             <th>Loss</th>
             <th>Win</th>
             <th>Total Trades</th>
@@ -202,9 +212,9 @@
             <td>Over/Under</td>
             <td>0.54</td>
             <td>0.5</td>
-            <td>-</td>
-            <td>10</td>
-            <td>15</td>
+            <td>5</td>
+            <td class="loss">10</td>
+            <td class="win">15</td>
             <td>25</td>
         </tr>
         <tr>
@@ -212,8 +222,8 @@
             <td>0.50</td>
             <td>0.5</td>
             <td>-</td>
-            <td>10</td>
-            <td>15</td>
+            <td class="loss">10</td>
+            <td class="win">15</td>
             <td>25</td>
         </tr>
         <tr>
@@ -221,8 +231,8 @@
             <td>0.63</td>
             <td>0.5</td>
             <td>+0.1</td>
-            <td>10</td>
-            <td>15</td>
+            <td class="loss">10</td>
+            <td class="win">15</td>
             <td>25</td>
         </tr>
         <tr>
@@ -230,8 +240,8 @@
             <td>0.65</td>
             <td>0.5</td>
             <td>+0.44</td>
-            <td>10</td>
-            <td>15</td>
+            <td class="loss">10</td>
+            <td class="win">15</td>
             <td>25</td>
         </tr>
         <tr>
@@ -239,8 +249,8 @@
             <td>5.00</td>
             <td>0.5</td>
             <td>Digit 1 or 3</td>
-            <td>10</td>
-            <td>15</td>
+            <td class="loss">10</td>
+            <td class="win">15</td>
             <td>25</td>
         </tr>
         <tr>
@@ -248,14 +258,10 @@
             <td>0.54</td>
             <td>0.5</td>
             <td>-</td>
-            <td>10</td>
-            <td>15</td>
+            <td class="loss">10</td>
+            <td class="win">15</td>
             <td>25</td>
         </tr>
     </table>
-</body>
-</html>
-<!-- partial -->
-  
 </body>
 </html>
